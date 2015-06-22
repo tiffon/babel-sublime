@@ -358,17 +358,18 @@ repository:
       begin: >-
         (?x)
           \b([_$a-zA-Z][$\w]*)
-          \s*(:)
+          \s*((:))
           \s*(?:(async)\s+)?
           \s*(function)(?:\s*(\*)|(?=\s|[(]))
           \s*([_$a-zA-Z][$\w]*)?\s*
       beginCaptures:
         '1': {name: entity.name.function.js}
         '2': {name: punctuation.separator.key-value.js}
-        '3': {name: storage.type.js}
-        '4': {name: storage.type.function.js}
-        '5': {name: keyword.generator.asterisk.js}
-        '6': {name: entity.name.function.js}
+        '3': {name: constant.other.object.key.js}
+        '4': {name: storage.type.js}
+        '5': {name: storage.type.function.js}
+        '6': {name: keyword.generator.asterisk.js}
+        '7': {name: entity.name.function.js}
       end: (?<=\))
       patterns:
       - include: '#function-declaration-parameters'
@@ -635,10 +636,11 @@ repository:
       match: >-
         (?x)
           ([_$a-zA-Z][$\w]*)\s*
-          (\(\s*\))
+          ((\(\s*\)))
       captures:
         '1': {name: entity.name.function.js}
         '2': {name: meta.group.braces.round.function.arguments.js}
+        '3': {name: meta.brace.round.js}
 
     - name: meta.function-call.with-arguments.js
       match: >-
@@ -656,12 +658,13 @@ repository:
           (?:(?<=\.)|\b)
           ([A-Z][$\w]*)\s*(\.)
           ([_$a-zA-Z][$\w]*)\s*
-          (\(\s*\))
+          ((\(\s*\)))
       captures:
         '1': {name: variable.other.class.js}
         '2': {name: keyword.operator.accessor.js}
         '3': {name: entity.name.function.js}
         '4': {name: meta.group.braces.round.function.arguments.js}
+        '5': {name: meta.brace.round.js}
 
     - name: meta.function-call.static.with-arguments.js
       match: >-
@@ -680,10 +683,11 @@ repository:
         (?x)
           (?<=\.)
           ([_$a-zA-Z][$\w]*)\s*
-          (\(\s*\))
+          ((\(\s*\)))
       captures:
         '1': {name: entity.name.function.js}
         '2': {name: meta.group.braces.round.function.arguments.js}
+        '3': {name: meta.brace.round.js}
 
     - name: meta.function-call.method.with-arguments.js
       match: >-
@@ -1190,7 +1194,8 @@ repository:
       match: '&'
 
   jsx-evaluated-code:
-    name: meta.brace.curly.js
+    # name: meta.brace.curly.js
+    name: meta.jsx.expression.js
     begin: '{'
     end: '}'
     beginCaptures:
@@ -1220,7 +1225,8 @@ repository:
     - include: '#jsx-children'
 
   jsx-tag-open:
-    name: tag.open.js
+    # name: tag.open.js
+    name: meta.jsx.tag.open.js
     begin: >-
       (?x)
         (<)
